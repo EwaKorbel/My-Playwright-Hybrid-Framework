@@ -1,0 +1,12 @@
+{
+  "validUser": {
+    "email": "testuser@test",
+    "password": "TestTest123",
+    "username": "Soltereczka87"
+  },
+  "articles": {
+    "newTitle": "My Awesome Article",
+    "description": "Short description",
+    "body": "This is the body of my article"
+  }
+}

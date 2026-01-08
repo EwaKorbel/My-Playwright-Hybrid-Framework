@@ -1,0 +1,21 @@
+{
+  "name": "myframework",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test:ui": "npx playwright test --project=chromium",
+  "test:api": "npx playwright test tests/api",
+  "test:full": "npx playwright test",
+  "report": "npx playwright show-report"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "@faker-js/faker": "^10.2.0",
+    "@playwright/test": "^1.57.0",
+    "@types/node": "^25.0.3"
+  }
+}
