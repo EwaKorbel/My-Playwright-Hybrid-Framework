@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
-import { ApiUtils } from '../../utils/api-utils';
-import userData from '../../test-data/user-data.json';
+import { ApiUtils } from '../../../utils/api-utils';
+import userData from '../../../test-data/user-data.json';
 
 test('Create Article via API', async ({ request }) => {
     const apiUtils = new ApiUtils(request);

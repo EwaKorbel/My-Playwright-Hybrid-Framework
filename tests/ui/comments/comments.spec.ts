@@ -1,5 +1,7 @@
 import { test, expect } from '@playwright/test';
 
+test.use({ storageState: '.auth/user.json' });
+
 test('Add comment to article', async ({ page }) => {
    
     await page.goto('/');

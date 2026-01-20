@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import userData from '../../test-data/user-data.json';
+import userData from '../../../test-data/user-data.json';
 
 test('Powinien zaktualizować bio użytkownika przez API', async ({ request }) => {
     // Logowanie po token

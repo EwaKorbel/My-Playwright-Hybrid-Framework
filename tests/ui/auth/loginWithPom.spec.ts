@@ -1,7 +1,7 @@
 import { test } from '@playwright/test';
-import { NavigationPage } from '../../page-objects/NavigationPage';
-import { ApiUtils } from '../../utils/api-utils';
-import userData from '../../test-data/user-data.json';
+import { NavigationPage } from '../../../page-objects/NavigationPage';
+import { ApiUtils } from '../../../utils/api-utils';
+import userData from '../../../test-data/user-data.json';
 
 test('Login via Api and user profile validation', async ({ page, request }) => {
   const navigationPage = new NavigationPage(page);

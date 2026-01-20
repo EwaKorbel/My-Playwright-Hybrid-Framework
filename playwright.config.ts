@@ -39,46 +39,45 @@ export default defineConfig({
   /* Konfiguracja projektów */
   projects: [
     {
-      name: 'setup',
-      testMatch: /.*\.setup\.ts/,
+      name: 'setup', // To jest unikalna nazwa projektu logowania
+      testMatch: /auth\.setup\.ts/, // Playwright szuka tego pliku, by zrobić login
     },
     {
       name: 'chromium',
+      testDir: './tests/ui', // Szuka testów tylko w folderze UI
       use: { 
         ...devices['Desktop Chrome'],
-        // Pobieranie stanu sesji z pliku stworzonego przez projekt 'setup'
-        storageState: '.auth/user.json',
+        storageState: '.auth/user.json', // Korzysta z wyniku projektu 'setup'
       },
-      dependencies: ['setup'],
+      dependencies: ['setup'], // Mówi: "najpierw uruchom projekt o nazwie setup"
     },
-
-    {
-      name: 'firefox',
-      use: { 
-        ...devices['Desktop Firefox'],
-        storageState: '.auth/user.json',
-      },
-      dependencies: ['setup'],
-    },
-
-    {
-      name: 'webkit',
-      use: { 
-        ...devices['Desktop Safari'],
-        storageState: '.auth/user.json',
-      },
-      dependencies: ['setup'],
-    },
-    // ... poprzednie projekty (chromium, firefox, webkit)
-
     {
       name: 'api',
-      testMatch: /.*api\/.*\.spec\.ts/, // Celuje we wszystkie testy w folderze api
+      testDir: './tests/api', // Szuka testów tylko w folderze API
       use: {
         baseURL: 'https://conduit-api.bondaracademy.com/api',
-        storageState: undefined, // Testy API zazwyczaj same zarządzają tokenem, nie potrzebują sesji z UI
       },
     },
-  ],
-  
+
+   // {
+    //  name: 'firefox',
+    //  use: { 
+    //    ...devices['Desktop Firefox'],
+    //    storageState: '.auth/user.json',
+    //  },
+   //  dependencies: ['setup'],
+   // },
+
+  //  {
+    //  name: 'webkit',
+    //  use: { 
+    //    ...devices['Desktop Safari'],
+    //    storageState: '.auth/user.json',
+    //  },
+    //  dependencies: ['setup'],
+   // },
+    // ... poprzednie projekty (chromium, firefox, webkit)
+
+   
+],
 });
