@@ -2,57 +2,56 @@
 
 ![Playwright Tests](https://github.com/TwojaNazwaUzytkownika/My-Playwright-Hybrid-Framework/actions/workflows/playwright.yml/badge.svg)
 
-Profesjonalny framework do testowania aplikacji **Conduit**, integrujący testy E2E (UI) z zaawansowaną walidacją REST API. Projekt skupia się na stabilności, szybkości wykonania oraz nowoczesnych wzorcach projektowych.
+A professional-grade automation framework for the **Conduit** (RealWorld) application, integrating E2E UI testing with advanced REST API validation. This project focuses on high execution speed, stability, and modern design patterns.
 
 ---
 
-## 🚀 Kluczowe Cechy (Key Features)
+## 🚀 Key Features
 
-* **Hybrid Testing Strategy**: Wykorzystanie API do szybkiego przygotowania danych (seeding) i weryfikacji stanu po akcjach w UI.
-* **Global Authentication**: Skrypt `auth.setup.ts` loguje się raz i współdzieli stan sesji (`storageState`), skracając czas testów o ~40%.
-* **Page Object Model (POM)**: Czysta separacja logiki testów od selektorów UI.
-* **CI/CD Integration**: Pełna automatyzacja testów przy każdym *pushu* dzięki GitHub Actions.
-* **Cross-Browser Support**: Gotowa konfiguracja dla Chromium, Firefox i WebKit.
+* **Hybrid Testing Strategy**: Utilizes API calls for instantaneous data seeding and post-UI state verification.
+* **Global Authentication Setup**: Implements a dedicated `auth.setup.ts` project that performs login once and shares the `storageState` across all UI tests, reducing total execution time by ~40%.
+* **Page Object Model (POM)**: Strict separation of concerns between test logic and UI selectors.
+* **CI/CD Integration**: Fully automated test execution on every *push* via GitHub Actions.
+* **Cross-Browser Support**: Pre-configured projects for Chromium, Firefox, and WebKit engines.
 
 ---
 
-## 🧪 Zakres Testów (Test Coverage)
+## 🧪 Test Coverage
 
 ### 🔹 API Testing
-| Moduł | Typ Testu | Opis |
+| Module | Test Type | Description |
 | :--- | :--- | :--- |
-| **Articles** | Boundary Values | Testowanie limitów znaków (np. 2000 znaków w body). |
-| **Articles** | Security | Walidacja uprawnień (401 Unauthorized) dla błędnych/wygasłych tokenów. |
-| **Articles** | CRUD | Pełny cykl tworzenia, pobierania i usuwania artykułów. |
-| **Tags** | Integration | Weryfikacja poprawności pobierania tagów z backendu. |
+| **Articles** | Boundary Values | Testing system limits (e.g., 2000 characters in article body). |
+| **Articles** | Security | Authorization validation (401 Unauthorized) for invalid/expired tokens. |
+| **Articles** | CRUD | Full cycle of creating, fetching, and deleting articles via REST. |
+| **Tags** | Integration | Verifying the integrity of tag retrieval from the backend. |
 
 ### 🔹 UI Testing
-| Moduł | Typ Testu | Opis |
+| Module | Test Type | Description |
 | :--- | :--- | :--- |
-| **Full Lifecycle** | E2E Flow | Kompletna ścieżka: Utwórz -> Edytuj -> Zweryfikuj -> Usuń artykuł. |
-| **Auth** | Session | Weryfikacja utrzymania sesji użytkownika na różnych podstronach. |
+| **Full Lifecycle** | E2E Flow | Complete user journey: Create -> Edit -> Verify -> Delete article. |
+| **Auth** | Session Management | Verifying user persistence across different application routes. |
 
 ---
 
-## 🏗️ Architektura Projektu
+## 🏗️ Project Structure
 
 ```text
-├── .auth/               # Przechowywanie zaszyfrowanego stanu sesji
-├── page-objects/        # Klasy Page Object Model (UI)
-├── test-data/           # Scentralizowane dane testowe (JSON)
+├── .auth/               # Stores encrypted session storageState
+├── page-objects/        # Page Object Model classes (UI)
+├── test-data/           # Centralized test data management (JSON)
 ├── tests/
-│   ├── api/             # Testy integracyjne i funkcjonalne API
+│   ├── api/             # Integration & DDT API tests
 │   │   ├── articles/    # Security, Boundary Values, CRUD
-│   │   └── auth/        # Walidacja logowania i rejestracji
-│   └── ui/              # Funkcjonalne testy E2E UI
-├── playwright.config.ts # Globalna konfiguracja i definicje projektów
+│   │   └── auth/        # Login & Registration validation
+│   └── ui/              # Functional E2E UI tests
+├── playwright.config.ts # Global configuration & Project definitions
 
-Technologia (Tech Stack)
+Tech Stack
 Playwright (Test Runner & Browser Automation)
 
-TypeScript (Statyczne typowanie & Skalowalność)
+TypeScript (Static Typing & Scalability)
 
 Node.js (Runtime Environment)
 
 GitHub Actions (Continuous Integration)
-
