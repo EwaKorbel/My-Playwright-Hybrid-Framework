@@ -1,6 +1,6 @@
 # 🎭 Playwright Automation Framework - Conduit (RealWorld App)
 
-![Playwright Tests](https://github.com/TwojaNazwaUzytkownika/My-Playwright-Hybrid-Framework/actions/workflows/playwright.yml/badge.svg)
+![Playwright Tests](https://github.com/EwaKorbel/My-Playwright-Hybrid-Framework/actions/workflows/playwright.yml/badge.svg)
 
 A professional-grade automation framework for the **Conduit** (RealWorld) application, integrating E2E UI testing with advanced REST API validation. This project focuses on high execution speed, stability, and modern design patterns.
 
