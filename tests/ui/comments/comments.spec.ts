@@ -1,34 +1,40 @@
 import { test, expect } from '@playwright/test';
+import { NavigationPage } from '../../../page-objects/NavigationPage';
+import { ArticlePage } from '../../../page-objects/ArticlePage';
+import { faker } from '@faker-js/faker'; // Importujemy Fakera
 
 test.use({ storageState: '.auth/user.json' });
 
-test('Add comment to article', async ({ page }) => {
-   
-    await page.goto('/');
-    await expect(page.locator('.navbar')).toContainText('testuser', { timeout: 15000 });
+test.describe('Article Comments with Faker & Cleanup', () => {
+    let navigateTo: NavigationPage;
+    let articlePage: ArticlePage;
 
-    await page.getByText('Global Feed').click();
-    
-    const firstArticleTitle = page.locator('.article-preview h1').first();
-    await firstArticleTitle.waitFor({ state: 'visible', timeout: 15000 });
-    await firstArticleTitle.click();
-  
-    await page.locator('.article-content').waitFor({ state: 'visible', timeout: 15000 });
-   
-    const commentInput = page.getByPlaceholder('Write a comment...');
-    
-    await expect(async () => {
+    test.beforeEach(async ({ page }) => {
+        navigateTo = new NavigationPage(page);
+        articlePage = new ArticlePage(page);
+        await page.goto('/');
+    });
+
+    test('Should post a random comment and then delete it', async ({ page }) => {
+        await navigateTo.goToGlobalFeed();
         
-        if (!await commentInput.isVisible()) {
-            await page.reload();
-            await page.locator('.article-content').waitFor({ state: 'visible' });
-        }
-        await expect(commentInput).toBeVisible();
-    }).toPass({ timeout: 20000 });
+        // Klikamy w pierwszy artykuł
+        await page.locator('.article-preview h1').first().click();
 
-    const uniqueComment = `Automatyczny test: ${Math.random().toString(36).substring(7)}`;
-    await commentInput.fill(uniqueComment);
-    await page.getByRole('button', { name: 'Post Comment' }).click();
+        // GENEROWANIE DANYCH: Tworzymy losowe zdanie przy użyciu Fakera
+        const randomComment = faker.lorem.sentence(); 
+        console.log(`Testing with comment: ${randomComment}`);
+        
+        // AKCJA: Dodajemy losowy komentarz
+        await articlePage.addCommentWithRetry(randomComment);
 
-    await expect(page.locator('.card-text').first()).toContainText(uniqueComment);
+        // WERYFIKACJA: Czy komentarz się pojawił?
+       await expect(articlePage.firstCommentText).toContainText(randomComment);
+
+        // SPRZĄTANIE (CLEANUP): Usuwamy go po sobie
+        await articlePage.deleteLastComment(randomComment);
+        
+        // Ostateczne sprawdzenie, czy na pewno zniknął
+        await expect(page.getByText(randomComment)).not.toBeVisible();
+    });
 });
